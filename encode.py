@@ -5,7 +5,6 @@ cipher_text = ''
 cipher_cycle = key * 2 - 2
 
 for row in range(key):
-    print(row)
     index = 0
 
     # For the first rail
