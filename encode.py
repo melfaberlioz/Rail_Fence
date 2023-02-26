@@ -16,9 +16,9 @@ for row in range(key):
     # For the last rail
     elif row == key - 1:
         index = row
-    while index < len(plain_text):
-        cipher_text += plain_text[index]
-        index += cipher_cycle
+        while index < len(plain_text):
+            cipher_text += plain_text[index]
+            index += cipher_cycle
 
     # For the inner rows
     else:
