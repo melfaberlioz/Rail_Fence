@@ -1,5 +1,5 @@
 key = 3
-plain_text = "wellmakeitallright"
+plain_text = "butimokaytoneverknow"
 cipher_text = ''
 
 cipher_cycle = key * 2 - 2
