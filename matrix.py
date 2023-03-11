@@ -1,9 +1,10 @@
-def encode_rail_fence(text, key):
+def encoding_text(text, key):
     # create matrix to hold the encoded text
+    # means create an empty list for each rail
     matrix = [[] for _ in range(key)]
+    # loop through the plaintext, adding each letter to the appropriate rail
     row = 0
     direction = 1
-
     # Iterate over the text and add each character to the matrix
     for char in text:
         matrix[row].append(char)
@@ -13,12 +14,16 @@ def encode_rail_fence(text, key):
         if row == key - 1 or row == 0:
             direction *= -1
 
-    # joint the character in each row to create the encoded string
-    return ''.join([''.join(row) for row in matrix])
+    # join the letters in each row to create the ciphertext/encoded text
+    ciphertext = ''
+    for row in matrix:
+        ciphertext += ''.join(row)
+    return ciphertext
+    # return ''.join([''.join(row) for row in matrix])
 
 
-def decode_rail_fence(text, key):
-    # Create metrix to hold the decoded text
+def decoding_text(text, key):
+    # Create matrix to hold the decoded text
     matrix = [['' for _ in range(len(text))] for _ in range(key)]
     row = 0
     direction = 1
@@ -61,11 +66,10 @@ def rail_fence_encode_file(input_filename, output_filename, key):
                 break
 
             # encode the block using the rail fence cipher
-            encoded_block = encode_rail_fence(block, key)
+            encoded_block = encoding_text(block, key)
 
             # write the encoded block to the output file
             output_file.write(encoded_block)
-
 
 
 def rail_fence_decode_file(input_filename, output_filename, key):
@@ -78,7 +82,7 @@ def rail_fence_decode_file(input_filename, output_filename, key):
                 break  # end of file
 
             # decode the block using the Rail Fence Cipher
-            decoded_block = decode_rail_fence(block, key)
+            decoded_block = decoding_text(block, key)
 
             # write the decoded block to the output file
             output_file.write(decoded_block)
@@ -86,11 +90,11 @@ def rail_fence_decode_file(input_filename, output_filename, key):
 
 key_1 = int(input("Enter the key: "))
 # Read text from file
-encoded_file = encode_rail_fence('encode2.txt', key_1)
+encoded_file = encoding_text('encode2.txt', key_1)
 rail_fence_encode_file('encode2.txt', 'cipher_text.txt', key_1)
 
 key_2 = int(input("Enter the key: "))
-decoded_file = decode_rail_fence('decrypted_text.txt', key_2)
+decoded_file = decoding_text('decrypted_text.txt', key_2)
 rail_fence_decode_file('cipher_text.txt', 'decrypted_text.txt', key_2)
 # encode_rail_fence('encode2.txt', key_1)
 # (rail_fence_encode_file(, 'cipher_text.txt', key)
