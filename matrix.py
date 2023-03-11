@@ -55,46 +55,43 @@ def decoding_text(text, key):
     return decoded_text
 
 
-def rail_fence_encode_file(input_filename, output_filename, key):
+def encode_file(input_file, output_file, key):
     block_size = 1024
 
-    with open(input_filename, 'r') as input_file, \
-            open(output_filename, 'w') as output_file:
+    with open(input_file, 'r') as input_file, \
+            open(output_file, 'w') as output_file:
         while True:
-            block = input_file.read(block_size)
-            if not block:
+            block_of_text = input_file.read(block_size)
+            if not block_of_text:
                 break
 
             # encode the block using the rail fence cipher
-            encoded_block = encoding_text(block, key)
+            encoded_block = encoding_text(block_of_text, key)
 
             # write the encoded block to the output file
             output_file.write(encoded_block)
 
 
-def rail_fence_decode_file(input_filename, output_filename, key):
+def decode_file(input_file, output_file, key):
     block_size = 1024
-    with open(input_filename, 'r') as input_file, \
-            open(output_filename, 'w') as output_file:
+    with open(input_file, 'r') as input_file, \
+            open(output_file, 'w') as output_file:
         while True:
-            block = input_file.read(block_size)
-            if not block:
+            block_of_text = input_file.read(block_size)
+            if not block_of_text:
                 break  # end of file
 
             # decode the block using the Rail Fence Cipher
-            decoded_block = decoding_text(block, key)
+            decoded_block = decoding_text(block_of_text, key)
 
             # write the decoded block to the output file
             output_file.write(decoded_block)
 
 
 key_1 = int(input("Enter the key: "))
-# Read text from file
 encoded_file = encoding_text('encode2.txt', key_1)
-rail_fence_encode_file('encode2.txt', 'cipher_text.txt', key_1)
+encode_file('encode2.txt', 'cipher_text.txt', key_1)
 
 key_2 = int(input("Enter the key: "))
 decoded_file = decoding_text('decrypted_text.txt', key_2)
-rail_fence_decode_file('cipher_text.txt', 'decrypted_text.txt', key_2)
-# encode_rail_fence('encode2.txt', key_1)
-# (rail_fence_encode_file(, 'cipher_text.txt', key)
+decode_file('cipher_text.txt', 'decrypted_text.txt', key_2)
