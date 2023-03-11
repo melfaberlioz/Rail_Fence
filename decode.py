@@ -1,16 +1,17 @@
-key = 3
-cipher_text = "bmyekuioatnvrnwtkoeo"
+key = int(input("Enter a key:"))
+with open('cipher_text.txt', 'r') as file:
+    cipher_text = file.read()
 
 length = len(cipher_text)
-
-original_text = "." * length
+original_text = ''
+# original_text = "." * length
 
 cycle = 2 * key - 2
 units = length // cycle
 
 rail_lengths = [0] * key
 
-# top rail fence
+# top rail length
 rail_lengths[0] = units
 
 # inner rail fence
@@ -21,8 +22,6 @@ for i in range(1, key - 1):
 rail_lengths[key-1] = units
 
 
-
-
 for i in range(length % cycle):
     if i < key:
         rail_lengths[i] += 1
@@ -31,8 +30,8 @@ for i in range(length % cycle):
         rail_lengths[cycle-i] += 1
 
 # print(rail_lengths)
+# print(original_text)
 
-# print(plain_text)
 # replace characters in the top rail fence
 index = 0
 rail_offset = 0
@@ -59,7 +58,6 @@ for row in range(1, key - 1):
             left_char = not left_char
 
 rail_offset += rail_lengths[row]
-# print(plain_text)
 
 # replace characters in the bottom rail fence
 index = key - 1
@@ -67,5 +65,7 @@ for c in cipher_text[rail_offset:]:
     plain_text = original_text[:index] + c + original_text[index+1:]
     index += cycle
 
-# rail_offset += rail_lengths[0]
+# with open('decrypted_text.txt', 'w') as file:
+#     file.write(cipher_text)
+rail_offset += rail_lengths[0]
 print(original_text)
